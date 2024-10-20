@@ -1,93 +1,64 @@
 #include <stdio.h>
-#include<stdbool.h>
-#define max_size 10
-int top=-1;
-int stack[max_size];
-void push(int x);
-int pop();
-void stack_top(int stack[]);
-bool isEmpty(int stack[]);
-bool isFull(int stack[]);
+#define MAX 100
 
-void push(int x){
-    if (top==max_size-1){
-        printf("Stack full, Overflow!");
-    }
-    else{
-        top++;
-        stack[top]=x;
-    }
-}
-int pop(){
-    int data;
-    if (top==-1){
-        printf("Stack empty, Underflow!");
-    }
-    else{
-        data=stack[top];
-        top--;
-        return data;
+int stack[MAX];
+int top = -1;
+
+// Push operation
+void push(int value) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow\n");
+    } else {
+        stack[++top] = value;
     }
 }
-bool isEmpty(int stack[]){
-    if (top==-1){
-        return true;
-    }
-    return false;
-}
-bool isFull(int stack[]){
-    if (top==max_size-1){
-        return true;
-    }
-    else{
-        return false;
+
+// Pop operation
+int pop() {
+    if (top == -1) {
+        printf("Stack Underflow\n");
+        return -1;
+    } else {
+        return stack[top--];
     }
 }
-void stack_top(int stack[]){
-    if (top==-1){
+
+// Peek operation
+int peek() {
+    if (top == -1) {
         printf("Stack is empty\n");
-    }
-    else{
-        printf("top element is %d\n",stack[top]);
+        return -1;
+    } else {
+        return stack[top];
     }
 }
-int main(){
-    int choice,x,y;
-    
-    do{
-        printf("enter choice of operation:\n 1. Push\n 2. Pop\n 3. stack_Top\n 4. Stack_Empty\n 5. Stack_Full\n ");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1:
-              printf("enter element to be inserted: ");
-              scanf("%d",&x);
-              push(x);
-              break;
-            case 2:
-              y=pop();
-              printf("Popped element is %d\n",y);
-              break;
-            case 3:
-                stack_top(stack);
-                break;
-            case 4:
-                if(isEmpty(stack)){
-                    printf("stack is empty\n");
-                }
-                else{
-                    printf("stack is not empty\n");
-                }
-                break;
-            case 5:
-                if(isFull(stack)){
-                    printf("stack is full\n");
-                }
-                else{
-                    printf("stack is not full\n");
-                }
-                break;
+
+// isEmpty operation
+int isEmpty() {
+    return top == -1;
+}
+
+// Display stack contents
+void displayStack() {
+    if (isEmpty()) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Stack elements: ");
+        for (int i = top; i >= 0; i--) {
+            printf("%d ", stack[i]);
         }
+        printf("\n");
     }
-    while(choice!=0);
+}
+
+// Main function to demonstrate stack operations
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    printf("Top element is %d\n", peek());
+    displayStack();
+    printf("Popped element is %d\n", pop());
+    displayStack();
     return 0;
 }
