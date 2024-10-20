@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include<stdbool.h>
+#define max_size 10
+int top=-1;
+int stack[max_size];
+void push(int x);
+int pop();
+void stack_top(int stack[]);
+bool isEmpty(int stack[]);
+bool isFull(int stack[]);
+
+void push(int x){
+    if (top==max_size-1){
+        printf("Stack full, Overflow!");
+    }
+    else{
+        top++;
+        stack[top]=x;
+    }
+}
+int pop(){
+    int data;
+    if (top==-1){
+        printf("Stack empty, Underflow!");
+    }
+    else{
+        data=stack[top];
+        top--;
+        return data;
+    }
+}
+bool isEmpty(int stack[]){
+    if (top==-1){
+        return true;
+    }
+    return false;
+}
+bool isFull(int stack[]){
+    if (top==max_size-1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void stack_top(int stack[]){
+    if (top==-1){
+        printf("Stack is empty\n");
+    }
+    else{
+        printf("top element is %d\n",stack[top]);
+    }
+}
+int main(){
+    int choice,x,y;
+    
+    do{
+        printf("enter choice of operation:\n 1. Push\n 2. Pop\n 3. stack_Top\n 4. Stack_Empty\n 5. Stack_Full\n ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+              printf("enter element to be inserted: ");
+              scanf("%d",&x);
+              push(x);
+              break;
+            case 2:
+              y=pop();
+              printf("Popped element is %d\n",y);
+              break;
+            case 3:
+                stack_top(stack);
+                break;
+            case 4:
+                if(isEmpty(stack)){
+                    printf("stack is empty\n");
+                }
+                else{
+                    printf("stack is not empty\n");
+                }
+                break;
+            case 5:
+                if(isFull(stack)){
+                    printf("stack is full\n");
+                }
+                else{
+                    printf("stack is not full\n");
+                }
+                break;
+        }
+    }
+    while(choice!=0);
+    return 0;
+}
